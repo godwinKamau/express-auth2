@@ -1,3 +1,5 @@
+//Cory Rahman helped me navigate functionalities between client and server
+
 document.querySelector('#postmessage').addEventListener('click',postmessage)
 document.querySelector('#showPos').addEventListener('click',showPos)
 const display = document.querySelector('#current-location')
@@ -9,11 +11,16 @@ setInterval(getmessages,1000*60*60)
 
 //shows message on load
 function getmessages() {
+    while(list.childElementCount > 0){
+        list.childNodes.forEach(elem=>elem.remove())
+    }
+    
     navigator.geolocation.getCurrentPosition((pos) => {
         const crds = pos.coords
         fetch('/getmessages')
             .then(res=>res.json())
             .then(data=> {
+                console.log(data)
                 data.forEach(elem=>{
                     // console.log(elem.location)
                     const distance = haversineDistance(elem.location.lat,elem.location.long,crds.latitude,crds.longitude)
@@ -32,6 +39,9 @@ function getmessages() {
 //posts a new message to db, then reloads page
 function postmessage(){
     const message = document.querySelector('#message').value
+    if (message === ''){
+        return
+    }
     navigator.geolocation.getCurrentPosition((pos) => {
     // console.log(pos)
     const crds = pos.coords
@@ -42,8 +52,7 @@ function postmessage(){
                 location:{
                     lat:crds.latitude,
                     long:crds.longitude
-                },
-            
+                },            
             }),
             headers: {
                 "Content-Type": "application/json"
@@ -51,7 +60,7 @@ function postmessage(){
         })
         .then(res=> res.json())
         .then(data=> {
-            window.location.href= data.redirect
+            getmessages()
         })
         // .then(res => console.log(res))
         // document.querySelector('#lat').innerText = `Latitude: ${crds.latitude}`
@@ -60,6 +69,7 @@ function postmessage(){
 }
 
 //finds messages in relevant distance
+//===========Cory Rahman helped me find this formula; from Sumit Sakpal: https://medium.com/@sumitsakpal02/how-to-calculate-distance-between-two-coordinates-in-javascript-using-haversine-formula-c2dc0f5d524c
 function haversineDistance(lat1, lon1, lat2, lon2) {
     const toRad = (angle) => (angle * Math.PI) / 180;
     
@@ -79,16 +89,14 @@ function showPos(){
     navigator.geolocation.getCurrentPosition((pos) => {
         display.innerText = `Your current position id ${pos.coords.latitude}, ${pos.coords.longitude}`
     })
+    getmessages()
 } 
 
 getmessages()
 
 
-//messing around with haversine to give a conditional to display message.
 
-
-
-// //constantly watches position(come back to later since it clogs up processes)
+//=================constantly watches position(come back to later since it clogs up processes)========================//
 // function watchPos(){
 //     navigator.geolocation.watchPosition((pos) => {
 //         //get locations from database

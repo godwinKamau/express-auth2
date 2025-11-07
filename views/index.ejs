@@ -7,27 +7,31 @@
     <link rel="stylesheet" href="css/home.css">
 </head>
 <body>
-    <form action="/logout" method="post"><button type="submit">Logout</button></form>
     <container class="container main">
-    <section class="title">
-        <h1>Secret Messages</h1>
-    </section>
-    <section class="description">
-        <p>Write a message to place in your geolocation. Find it later!</p>
-    </section>
-    <section class="message">
-        <input type="text" id="message" name="message">
-    </section>
-    <p id="current-location"></p>
-    <h3 id="lat"></h3>
-    <h3 id="long"></h3>
-    <button id="postmessage">Press to post a new message!</button>
-    
-    <button id="showPos">Press to refresh geolocation!</button>
-    <section class="message-list">
-    <h2>Messages within 1 kilometer:</h2>
-    <ul id="relevant-messages"></ul>
-    </section>
+        <section class="header">
+            <form action="/logout" method="post">
+                <button type="submit">Logout</button>
+            </form>
+        </section>
+        <section class="title">
+            <h1>Secret Messages</h1>
+        </section>
+        <section class="description">
+            <p>Write a message to place in your geolocation. Find it later!</p>
+        </section>
+        <section class="message">
+            <textarea id="message" name="message" rows="7" cols="60" placeholder="Place your message here."></textarea>
+        </section>
+        <p id="current-location"></p>
+        <h3 id="lat"></h3>
+        <h3 id="long"></h3>
+        <button id="postmessage">Press to post a new message!</button>
+        
+        <button id="showPos">Press to refresh geolocation!</button>
+        <section class="message-list">
+            <h2>Messages within 1 kilometer:</h2>
+            <ul id="relevant-messages"></ul>
+        </section>
     </container>
     <script type="text/javascript" src="main.js"></script>
 </body>
