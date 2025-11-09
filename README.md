@@ -1,4 +1,4 @@
-# express-auth2
+# Secret Messages (express-auth2)
 
 A full-stack web app used to place notes only available in certain geolocations (within 1km from the place of posting). Users also get to see the notes made locally. All data is stored in MongoDB, making the app scalable for future character additions and features.
 
@@ -16,7 +16,7 @@ A full-stack web app used to place notes only available in certain geolocations 
 
 ## Live Demo
 
-express-auth2.onrender.com
+https://express-auth2.onrender.com
 
 <hr>
 
@@ -59,6 +59,7 @@ This runs the server using nodemon for automatic reload during development.
 ## Future Improvements
 - Ability to delete your own messages
 - Use geocode API to display city/landmark instead of geolocation
+- Also use geocode for database organization. Place "city data" in a specific room in the database (Not sold on this idea yet).
 - Use leaflet API for a nice UI interface.
 - Google/Facebook/X Auth with more passport strategies.
 
