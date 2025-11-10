@@ -14,7 +14,7 @@ function getmessages() {
     while(list.childElementCount > 0){
         list.childNodes.forEach(elem=>elem.remove())
     }
-    
+
     navigator.geolocation.getCurrentPosition((pos) => {
         const crds = pos.coords
         fetch('/getmessages')
